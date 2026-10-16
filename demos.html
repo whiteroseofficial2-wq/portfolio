@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Whiterose – Live Demos</title><meta name="description" content="Open and try live Whiterose demos: websites, mobile apps, ERP dashboards, security tools and AI automations."><meta name="theme-color" content="#0B1220"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B1220;--panel:#0E1728;--card:#121B2E;--ink:#E9EEF7;--mut:#9AA8BE;--ln:rgba(255,255,255,.11);--acc:#22C55E;--acc-ink:#04210F;--lbl:#4ADE80;--warn:#FBBF24;--e:cubic-bezier(.2,.7,.3,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--lbl);outline-offset:3px;border-radius:6px}
+.skip{position:fixed;left:-9999px;top:0;background:var(--acc);color:var(--acc-ink);padding:11px 16px;font-weight:700;text-decoration:none;z-index:100;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.ic{width:26px;height:26px;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ic-s{width:17px;height:17px}
+.s{max-width:1040px;margin:0 auto;padding:56px 18px}
+h1,h2,h3{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.18}
+nav{position:sticky;top:0;z-index:5;background:rgba(11,18,32,.82);border-bottom:1px solid var(--ln);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+nav .in{max-width:1040px;margin:0 auto;padding:8px 18px;display:flex;align-items:center;gap:4px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav .in::-webkit-scrollbar{display:none}
+nav img{width:34px;height:34px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(74,222,128,.55)}
+nav b{font-family:"Fira Code",ui-monospace,Menlo,monospace;font-weight:500;letter-spacing:.2em;font-size:14px;margin-right:auto;padding-right:12px}
+nav a{color:var(--mut);text-decoration:none;font-size:14px;padding:11px 8px;border-radius:8px;transition:color .18s var(--e),background .18s var(--e)}
+nav a:hover{color:var(--ink);background:rgba(255,255,255,.07)}
+nav a[aria-current=page]{color:var(--lbl);background:rgba(34,197,94,.1)}
+.hero{padding-top:56px;position:relative;text-align:center}
+.hero:before{content:"";position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:min(760px,100%);height:340px;background:radial-gradient(closest-side,rgba(34,197,94,.18),transparent);pointer-events:none}
+.hero>*{position:relative}
+.k{color:var(--lbl);font-family:"Fira Code",ui-monospace,Menlo,monospace;letter-spacing:.2em;font-size:12px;font-weight:500;text-transform:uppercase}
+h1{font-size:clamp(28px,6vw,46px);margin:10px 0 10px}
+.hero p{max-width:580px;margin:0 auto;color:var(--mut);font-size:17px}
+.count{margin:20px auto 0;display:inline-flex;gap:8px;align-items:center;font-family:"Fira Code",ui-monospace,Menlo,monospace;font-size:13px;color:var(--mut);border:1px solid var(--ln);border-radius:999px;padding:8px 14px}
+.count b{color:var(--lbl);font-weight:500}
+h2{font-size:clamp(22px,3.4vw,28px);margin:6px 0 8px}
+.sub{margin:0 0 22px;color:var(--mut);font-size:15px}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px}
+.c{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s var(--e),transform .2s var(--e),box-shadow .2s var(--e)}
+.c:hover{border-color:rgba(74,222,128,.45);transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.35)}
+.c h3{margin:0;font-size:17px}
+.c p{margin:0;font-size:14.5px;color:var(--mut)}
+.c-actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-top:8px}
+.badge{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-family:"Fira Code",ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.06em;border-radius:999px;padding:4px 10px;border:1px solid rgba(74,222,128,.4);color:var(--lbl)}
+.badge.draft{border-color:rgba(251,191,36,.45);color:var(--warn)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:"Fira Code",ui-monospace,Menlo,monospace;font-size:12px;border:1px solid var(--ln);border-radius:20px;padding:3px 10px;color:#B9C6DA}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:12px 18px;min-height:44px;border-radius:12px;font-weight:600;font-size:15px;background:var(--acc);color:var(--acc-ink);cursor:pointer;border:1px solid transparent;font-family:inherit;transition:transform .18s var(--e),background .18s var(--e),box-shadow .18s var(--e)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.btn.o{background:none;color:var(--ink);border-color:rgba(255,255,255,.3)}
+.btn.o:hover{border-color:var(--ink);background:rgba(255,255,255,.07)}
+.btn.sm{padding:10px 14px;min-height:42px;font-size:14px}
+.empty{border:1px dashed rgba(255,255,255,.22);border-radius:14px;padding:32px 22px;text-align:center;background:rgba(255,255,255,.02)}
+.empty h3{margin:0 0 8px;font-size:17px}
+.empty p{margin:0 auto;max-width:470px;color:var(--mut);font-size:14.5px}
+#manage{scroll-margin-top:72px}
+.panel{border:1px solid rgba(74,222,128,.35);background:linear-gradient(180deg,rgba(34,197,94,.07),transparent 60%),var(--panel);border-radius:14px;padding:22px}
+.panel h2{margin-top:0}
+.panel h3{font-size:16px}
+label{display:block;font-size:13.5px;font-weight:600;margin:14px 0 6px}
+input,textarea{width:100%;background:var(--bg);border:1px solid var(--ln);color:var(--ink);border-radius:10px;padding:11px 13px;font-family:inherit;font-size:15px;min-height:44px}
+input::placeholder,textarea::placeholder{color:#7C8AA3}
+input[aria-invalid=true]{border-color:#F87171}
+.err{display:block;color:#FCA5A5;font-size:13px;margin-top:5px;min-height:19px}
+.hint{color:var(--mut);font-size:13px}
+code{font-family:"Fira Code",ui-monospace,Menlo,monospace;font-size:13px;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:5px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.chk{display:flex;gap:10px;align-items:center;font-weight:400;font-size:14.5px;margin:14px 0 0}
+.chk input{width:20px;height:20px;min-height:20px;flex:none;accent-color:var(--acc)}
+.msg{margin:12px 0 0;font-size:14px;color:var(--lbl)}
+.msg.bad{color:#FCA5A5}
+.snippet{width:100%;min-height:160px;font-family:"Fira Code",ui-monospace,Menlo,monospace;font-size:13px;line-height:1.5;white-space:pre;margin-top:6px}
+.local-list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+.local-list li{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font-size:14px;flex-wrap:wrap}
+button.danger{background:none;border:1px solid rgba(248,113,113,.5);color:#FCA5A5;border-radius:10px;padding:8px 12px;min-height:40px;font:inherit;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+button.danger:hover{background:rgba(248,113,113,.12)}
+footer{text-align:center;font-size:13px;color:var(--mut);padding:28px 18px 220px;word-break:break-word;border-top:1px solid var(--ln)}
+footer a{display:inline-block;padding:4px 3px;min-height:24px}
+.floats{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:6}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+.owner{margin-top:18px}
+/* icon-only round buttons — the name each one needs is carried by aria-label */
+.floats a{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--acc);color:var(--acc-ink);text-decoration:none;border-radius:50%;box-shadow:0 10px 26px rgba(0,0,0,.5);transition:transform .18s var(--e)}
+.floats a .ic{width:22px;height:22px}
+.floats a:hover{transform:translateY(-2px)}
+@media (max-width:520px){.s{padding:46px 16px}nav a{padding:11px 7px}.g3{grid-template-columns:1fr}.floats a{width:46px;height:46px}footer{padding-bottom:210px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<svg style="display:none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><symbol id="i-wa" viewBox="0 0 24 24"><path style="fill:currentColor;stroke:none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol><symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3.5h5.5V9"/><path d="M10.5 13.5 20.5 3.5"/><path d="M18 13.5v5a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2H10"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M3.5 6.5h17"/><path d="M8.5 6.5V4.8A1.8 1.8 0 0 1 10.3 3h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M6.5 6.5 7.3 19a2 2 0 0 0 2 1.9h5.4a2 2 0 0 0 2-1.9l.8-12.5"/><path d="M10.5 10.5v6M13.5 10.5v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11.5" height="11.5" rx="2"/><path d="M6.5 15h-1a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2H13a2 2 0 0 1 2 2v1"/></symbol><symbol id="i-call" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.1 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 8.2 5.6a1.5 1.5 0 0 0 1.6 0L21 6.5"/></symbol></svg>
+<nav aria-label="Primary"><div class="in"><img src="assets/logo.jpg" alt=""><b>WHITEROSE</b><a href="whiterose-portfolio.html">Home</a><a href="whiterose-portfolio.html#services">Services</a><a href="whiterose-portfolio.html#portfolio">Portfolio</a><a href="demos.html" aria-current="page">Demos</a><a href="whiterose-portfolio.html#team">Team</a><a href="whiterose-portfolio.html#contact">Contact</a></div></nav>
+<main id="main" tabindex="-1">
+
+<section class="s hero"><div class="k">LIVE DEMOS</div><h1>Try Before You Commit</h1>
+<p>Working builds you can open right now — websites, apps, dashboards and security tools. Click any demo to open it in a new tab.</p>
+<p class="count"><b id="cnt">0</b> demos published</p>
+<p class="owner"><button class="btn o" type="button" id="addlink"><svg class="ic ic-s" aria-hidden="true"><use href="#i-plus"/></svg>Add a demo link</button></p></section>
+
+<section class="s" aria-labelledby="demos-h">
+<h2 id="demos-h">Demo Library</h2>
+<p class="sub">Every card below is a real, clickable build. Concept projects are labelled — they show what is possible before you commit.</p>
+<div class="g3" id="grid"></div>
+<div class="empty" id="empty" hidden>
+<h3>No demos published yet</h3>
+<p>New demos are added regularly. Want to see something specific? Message us and we'll walk you through a live build.</p>
+<p style="margin-top:18px"><a class="btn" href="https://wa.me/919119547857"><svg class="ic ic-s" aria-hidden="true"><use href="#i-wa"/></svg>Request a demo</a></p>
+</div>
+</section>
+
+<section class="s" id="manage" hidden>
+<div class="panel">
+<div class="panel-head"><h2>Add a demo link</h2><button class="btn o" type="button" id="closemanage">Close</button></div>
+<p class="hint">Entries added here are saved <strong>in this browser only</strong>, so they are a staging list you can see immediately. To publish them for visitors, copy the generated code below and paste it over the <code>DEMOS</code> array near the top of this file's script, then save.</p>
+<form id="f" novalidate>
+<label for="t">Demo name</label>
+<input id="t" name="title" type="text" placeholder="Hotel Booking Website" autocomplete="off" aria-describedby="e-t">
+<span class="err" id="e-t" role="alert"></span>
+<label for="u">Demo link</label>
+<input id="u" name="url" type="url" inputmode="url" placeholder="https://demo.example.com" autocomplete="off" aria-describedby="e-u">
+<span class="err" id="e-u" role="alert"></span>
+<label for="d">Short description</label>
+<textarea id="d" name="desc" rows="3" placeholder="Room search, booking flow and an admin panel."></textarea>
+<label for="g">Tech tags, comma separated</label>
+<input id="g" name="tags" type="text" placeholder="PHP, MySQL" autocomplete="off">
+<label class="chk" for="l"><input id="l" type="checkbox" checked>Mark as live (uncheck for a concept build)</label>
+<div class="row"><button class="btn" type="submit"><svg class="ic ic-s" aria-hidden="true"><use href="#i-plus"/></svg>Add demo</button><button class="btn o" type="button" id="clear">Clear staging list</button></div>
+<p class="msg" id="status" aria-live="polite"></p>
+</form>
+<ul class="local-list" id="llist"></ul>
+<h3 style="margin-top:26px">Publish to the site</h3>
+<p class="hint">This code is what visitors will see once it replaces the <code>DEMOS</code> array in this file.</p>
+<textarea class="snippet" id="snippet" readonly aria-label="Generated DEMOS code ready to paste into this file"></textarea>
+<div class="row"><button class="btn" type="button" id="copy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-copy"/></svg>Copy code</button></div>
+<p class="msg" id="copystatus" aria-live="polite"></p>
+</div>
+</section>
+</main>
+<footer>© Whiterose • <a href="whiterose-portfolio.html">whiterose.indevs.in</a></footer>
+<div class="floats"><a href="tel:+919119547857" aria-label="Call Whiterose on +91 91195 47857"><svg class="ic ic-s" aria-hidden="true"><use href="#i-call"/></svg></a><a href="mailto:whiteroseofficial5@gmail.com" aria-label="Email Whiterose at whiteroseofficial5@gmail.com"><svg class="ic ic-s" aria-hidden="true"><use href="#i-mail"/></svg></a><a href="https://wa.me/919119547857" aria-label="Chat with Whiterose on WhatsApp"><svg class="ic ic-s" aria-hidden="true"><use href="#i-wa"/></svg></a></div>
+<script>
+/* =======================================================================
+   DEMOS — the list visitors see. Add your published demos here.
+   Shape: { title, url, desc, tags: [...], live: true|false }
+   Quick way: open demos.html#manage, use the form, then paste the code it
+   generates over this array.
+   ======================================================================= */
+const DEMOS=[
+ {title:"Whiterose Website",url:"https://whiterose.indevs.in/",desc:"Our own site — dark security aesthetic, responsive and accessible.",tags:["HTML","CSS","JS"],live:true},
+ {title:"WhiteRose School ERP",url:"https://whiteroseofficial5-lgtm.github.io/school-demo/",desc:"Complete school management platform for Bright Future International School — every role has a pre-filled demo login.",tags:["Web App","Multi-role"],live:true},
+ {title:"Animal Heart Vet Clinic",url:"https://amanrai264.github.io/Pet-Website/",desc:"Veterinary clinic, spa and pet store site — consultation, vaccination, grooming, boarding and adoption, with pricing and call-to-action.",tags:["Website","Booking"],live:true},
+ {title:"Petopia Veterinary Clinic",url:"https://petopia-website-sable.vercel.app/",desc:"Veterinary clinic and surgical centre website with services and contact details.",tags:["Website","Services"],live:true}
+];
+
+const STORE="whiterose.demos.local",$=i=>document.getElementById(i);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=u=>{try{const x=new URL(String(u).trim());return (x.protocol==="http:"||x.protocol==="https:")?x.href:""}catch(e){return ""}};
+
+let local=[],storageOk=true;
+try{const raw=localStorage.getItem(STORE);if(raw){const v=JSON.parse(raw);if(Array.isArray(v))local=v}}catch(e){storageOk=false}
+
+const tagList=t=>Array.isArray(t)?t.map(String):String(t||"").split(",").map(s=>s.trim()).filter(Boolean);
+const clean=x=>({title:String(x.title||""),url:safeUrl(x.url),desc:String(x.desc||""),tags:tagList(x.tags).map(s=>s.trim()).filter(Boolean),live:x.live!==false});
+
+function card(x){
+  const live=x.live!==false;
+  return `<article class="c">
+<span class="badge${live?"":" draft"}">${live?"LIVE":"CONCEPT"}</span>
+<h3>${esc(x.title)}</h3>${x.desc?`<p>${esc(x.desc)}</p>`:""}
+${x.tags.length?`<div class="tags">${x.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
+${x.local?'<span class="badge draft">STAGED · only you see this</span>':""}
+<div class="c-actions">${x.url?`<a class="btn sm" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer"><svg class="ic ic-s" aria-hidden="true"><use href="#i-ext"/></svg>Open demo<span class="sr">: ${esc(x.title)} (opens in a new tab)</span></a>`:'<span class="badge draft">LINK NOT VALID</span>'}</div>
+</article>`;
+}
+
+function render(){
+  const all=[...DEMOS.map(clean),...local.map(x=>({...clean(x),local:true}))];
+  $("grid").innerHTML=all.map(card).join("");
+  $("empty").hidden=all.length>0;
+  $("cnt").textContent=all.length;
+  $("llist").innerHTML=local.length?local.map((x,i)=>`<li><span>${esc(x.title)} <span class="hint">${esc(x.url)}</span></span><button class="danger" type="button" data-del="${i}"><svg class="ic ic-s" aria-hidden="true"><use href="#i-trash"/></svg>Remove</button></li>`).join(""):'<li class="hint">Nothing staged in this browser yet.</li>';
+  const published=DEMOS.map(clean).concat(local.map(x=>({...clean(x),live:x.live!==false})));
+  $("snippet").value="const DEMOS = "+JSON.stringify(published.map(({title,url,desc,tags,live})=>({title,url,desc,tags,live})),null,2)+";";
+}
+const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(local))}catch(e){storageOk=false}};
+const say=(id,m,bad)=>{const el=$(id);el.textContent=m;el.className="msg"+(bad?" bad":"")};
+
+$("f").addEventListener("submit",e=>{
+  e.preventDefault();
+  const title=$("t").value.trim(),url=$("u").value.trim(),desc=$("d").value.trim(),tags=$("g").value;
+  let bad=false;
+  if(!title){$("e-t").textContent="Enter a demo name.";$("t").setAttribute("aria-invalid","true");bad=true}
+  else{$("e-t").textContent="";$("t").removeAttribute("aria-invalid")}
+  if(!url){$("e-u").textContent="Enter the demo link.";$("u").setAttribute("aria-invalid","true");bad=true}
+  else if(!safeUrl(url)){$("e-u").textContent="Must be a full link starting with http:// or https://";$("u").setAttribute("aria-invalid","true");bad=true}
+  else{$("e-u").textContent="";$("u").removeAttribute("aria-invalid")}
+  if(bad){say("status","Please fix the highlighted fields.",true);return}
+  local.push({title,url:safeUrl(url),desc,tags:tagList(tags).map(s=>s.trim()).filter(Boolean),live:$("l").checked});
+  save();$("f").reset();$("l").checked=true;render();
+  say("status",storageOk?"Demo staged below. Copy the code to publish it for visitors.":"Staged for this session, but this browser blocked storage — copy the code to publish.");
+});
+
+$("llist").addEventListener("click",e=>{
+  const b=e.target.closest("[data-del]");if(!b)return;
+  local.splice(Number(b.dataset.del),1);save();render();say("status","Removed from the staging list.");
+});
+
+$("clear").addEventListener("click",()=>{
+  if(!local.length){say("status","The staging list is already empty.");return}
+  if(!confirm("Remove all staged demos from this browser?"))return;
+  local=[];save();render();say("status","Staging list cleared. Published demos are untouched.");
+});
+
+$("copy").addEventListener("click",async()=>{
+  const ta=$("snippet");ta.focus();ta.select();
+  let ok=false;
+  try{await navigator.clipboard.writeText(ta.value);ok=true}catch(e){try{ok=document.execCommand("copy")}catch(e2){ok=false}}
+  say("copystatus",ok?"Code copied. Paste it over the DEMOS array in demos.html.":"Copy was blocked — the code is selected, press Ctrl+C to copy it.",!ok);
+});
+
+function showManage(){const on=location.hash==="#manage";$("manage").hidden=!on;if(on)$("manage").scrollIntoView({block:"start"})}
+$("addlink").addEventListener("click",()=>{
+  if(location.hash!=="#manage")location.hash="#manage";else showManage();
+  /* the hash change itself blurs back to body, so focus the first field just after it lands */
+  setTimeout(()=>{if(!$("manage").hidden)$("t").focus({preventScroll:true})},120);
+});
+$("closemanage").addEventListener("click",()=>{
+  history.replaceState(null,"",location.pathname+location.search);
+  showManage();
+  setTimeout(()=>$("addlink").focus({preventScroll:true}),80);
+});
+addEventListener("hashchange",showManage);
+if(!storageOk)say("status","This browser blocked local storage, so staged demos will not persist. Use the code box to publish instead.",true);
+render();showManage();
+</script></body></html>
