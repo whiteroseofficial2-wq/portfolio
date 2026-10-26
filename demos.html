@@ -184,9 +184,9 @@ function render(){
   $("snippet").value="const DEMOS = "+JSON.stringify(published.map(({title,url,desc,tags,live})=>({title,url,desc,tags,live})),null,2)+";";
 }
 const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(local))}catch(e){storageOk=false}};
-const say=(id,m,bad)=>{const el=$(id);el.textContent=m;el.className="msg"+(bad?" bad":"")};const checkPassword=(e)=>{const pw=document.getElementById('pw').value;if(pw!=='whiterose1234@#'){e.preventDefault();alert('Incorrect password. The required password is whiterose1234@#.');return false}else{return true}};
+const say=(id,m,bad)=>{const el=$(id);el.textContent=m;el.className="msg"+(bad?" bad":"")};const PW_HASH="a6b9bdeabbabdc552fc78e55a13e59896fbd9aeee46176c85341ed37702bfbb1";const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");const checkPassword=async()=>{const pw=document.getElementById("pw").value;try{return hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw)))===PW_HASH}catch(_){return false}};
 
-$("f").addEventListener("submit",e=>{
+$("f").addEventListener("submit",async e=>{
   e.preventDefault();
   const title=$("t").value.trim(),url=$("u").value.trim(),desc=$("d").value.trim(),tags=$("g").value;
   let bad=false;
@@ -196,7 +196,7 @@ $("f").addEventListener("submit",e=>{
   else if(!safeUrl(url)){$("e-u").textContent="Must be a full link starting with http:// or https://";$("u").setAttribute("aria-invalid","true");bad=true}
   else{$("e-u").textContent="";$("u").removeAttribute("aria-invalid")}
   if(bad){say("status","Please fix the highlighted fields.",true);return}
-  if(!checkPassword(e))return
+  if(!(await checkPassword())){alert("Incorrect password. Please try again.");return}
   local.push({title,url:safeUrl(url),desc,tags:tagList(tags).map(s=>s.trim()).filter(Boolean),live:$("l").checked});
   save();$("f").reset();$("l").checked=true;render();
   say("status",storageOk?"Demo staged below. Copy the code to publish it for visitors.":"Staged for this session, but this browser blocked storage — copy the code to publish.");
