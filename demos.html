@@ -184,7 +184,7 @@ function render(){
   $("snippet").value="const DEMOS = "+JSON.stringify(published.map(({title,url,desc,tags,live})=>({title,url,desc,tags,live})),null,2)+";";
 }
 const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(local))}catch(e){storageOk=false}};
-const say=(id,m,bad)=>{const el=$(id);el.textContent=m;el.className="msg"+(bad?" bad":"")};const PW_HASH="a6b9bdeabbabdc552fc78e55a13e59896fbd9aeee46176c85341ed37702bfbb1";const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");const checkPassword=async()=>{const pw=document.getElementById("pw").value;try{return hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw)))===PW_HASH}catch(_){return false}};
+const say=(id,m,bad)=>{const el=$(id);el.textContent=m;el.className="msg"+(bad?" bad":"")};const PW_HASH="a6b9bdeabbabdc552fc78e55a13e59896fbd9aeee46176c85341ed37702bfbb1";const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");const verifyPassword=async pw=>{try{return hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw)))===PW_HASH}catch(_){return false}};const checkPassword=async()=>verifyPassword(document.getElementById("pw").value);const askDeletePassword=async()=>{const pw=prompt("Enter password to delete:");return pw===null?null:verifyPassword(pw)};
 
 $("f").addEventListener("submit",async e=>{
   e.preventDefault();
@@ -202,14 +202,18 @@ $("f").addEventListener("submit",async e=>{
   say("status",storageOk?"Demo staged below. Copy the code to publish it for visitors.":"Staged for this session, but this browser blocked storage — copy the code to publish.");
 });
 
-$("llist").addEventListener("click",e=>{
+$("llist").addEventListener("click",async e=>{
   const b=e.target.closest("[data-del]");if(!b)return;
+  const ok=await askDeletePassword();if(ok===null)return;
+  if(!ok){alert("Incorrect password. Demo not deleted.");return}
   local.splice(Number(b.dataset.del),1);save();render();say("status","Removed from the staging list.");
 });
 
-$("clear").addEventListener("click",()=>{
+$("clear").addEventListener("click",async()=>{
   if(!local.length){say("status","The staging list is already empty.");return}
   if(!confirm("Remove all staged demos from this browser?"))return;
+  const ok=await askDeletePassword();if(ok===null)return;
+  if(!ok){alert("Incorrect password. Staging list not cleared.");return}
   local=[];save();render();say("status","Staging list cleared. Published demos are untouched.");
 });
 
