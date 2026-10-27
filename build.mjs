@@ -11,8 +11,13 @@ const OUT = "dist";
 const FILES = ["index.html", "demos.html", "demos.json", ".nojekyll"];
 const DIRS = ["assets"];
 
-fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
+/* clear the contents rather than the folder itself: on Windows a folder that
+   some process is sitting in cannot be removed, and a build must not fail
+   over that. */
+for (const entry of fs.readdirSync(OUT)) {
+  fs.rmSync(path.join(OUT, entry), { recursive: true, force: true });
+}
 for (const f of FILES) {
   if (fs.existsSync(f)) fs.copyFileSync(f, path.join(OUT, f));
 }

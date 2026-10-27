@@ -4,6 +4,7 @@
   "private": true,
   "description": "Whiterose site: static pages plus a Netlify Function that publishes the demo library to Netlify Blobs.",
   "scripts": {
+    "build": "node build.mjs",
     "dev": "netlify dev"
   },
   "dependencies": {
