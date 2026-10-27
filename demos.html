@@ -114,6 +114,8 @@ footer a{display:inline-block;padding:4px 3px;min-height:24px}
 <p class="hint">A demo you add here goes straight onto the live site for every visitor — nothing to copy, and no token or key to handle. The list is saved by the site's own serverless function.</p>
 <p class="hint" style="margin-top:12px">Publishing: <span class="badge" id="apistate">CHECKING…</span></p>
 
+<div id="publishhelp" hidden role="status" style="margin-top:16px"><p class="hint">Publishing is unavailable in this preview. Open the live publisher to add or remove demos. For local publishing, run <code>npm run dev</code>.</p><p style="margin-top:12px"><a class="btn o" href="https://whiteroseportfolio.netlify.app/demos#manage" target="_blank" rel="noopener noreferrer">Open live publisher (new tab)</a></p></div>
+
 <h3 style="margin-top:26px">New demo</h3>
 <form id="f" novalidate>
 <label for="t">Demo name</label>
@@ -150,14 +152,14 @@ footer a{display:inline-block;padding:4px 3px;min-height:24px}
 </div>
 <script>
 /* =======================================================================
-   DEMOS — the public list is kept by the site's own function (/api/demos)
+   DEMOS — the public list is kept by the site's own Netlify function
    in Netlify Blobs. Adding or removing a demo here writes straight to it,
    so the change is live for everyone. No code to copy, no token to keep.
    Where that function is not running (a plain static preview) the page
    still shows demos.json, but read-only.
    ======================================================================= */
-const API="/api/demos",FALLBACK="demos.json";
-const PREVIEW="the publish endpoint is not available here — a plain static preview cannot publish. Use the deployed site, or run netlify dev locally.";
+const API="/.netlify/functions/demos",FALLBACK="demos.json";
+const PREVIEW="publishing is unavailable on this host. Use Open live publisher below, or run npm run dev locally.";
 const $=i=>document.getElementById(i);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=u=>{try{const x=new URL(String(u).trim());return (x.protocol==="http:"||x.protocol==="https:")?x.href:""}catch(e){return ""}};
@@ -182,7 +184,8 @@ function render(){
   $("loaderr").hidden=!loadFailed;
   $("cnt").textContent=demos.length;
   $("apistate").className="badge"+(previewOnly?" draft":"");
-  $("apistate").textContent=previewOnly?"READ-ONLY PREVIEW":"PUBLISHING READY";
+  $("apistate").textContent=previewOnly?"PUBLISHING UNAVAILABLE":"ENDPOINT CONNECTED";
+  $("publishhelp").hidden=!previewOnly;
   $("pub").innerHTML=demos.length?demos.map((x,i)=>`<li><span>${esc(x.title)} <span class="hint">${esc(x.url)}</span></span><button class="danger" type="button" data-del="${i}"><svg class="ic ic-s" aria-hidden="true"><use href="#i-trash"/></svg>Remove</button></li>`).join(""):'<li class="hint">No demos published yet.</li>';
 }
 
@@ -210,14 +213,15 @@ async function api(action,demo,password){
   try{
     r=await fetch(API,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,demo,password})});
   }catch(e){
-    throw new Error(PREVIEW);
+    throw new Error("could not connect to the publisher. Check your connection and try again.");
   }
   let data=null;try{data=await r.json()}catch(e){}
   if(!r.ok){
     /* 404/405/501 all mean there is no function on this host */
-    if(r.status===404||r.status===405||r.status===501)throw new Error(PREVIEW);
+    if(r.status===404||r.status===405||r.status===501){previewOnly=true;render();throw new Error(PREVIEW)}
     throw new Error((data&&data.error)||("publish failed ("+r.status+")"));
   }
+  if(!data||!Array.isArray(data.demos)){previewOnly=true;render();throw new Error(PREVIEW)}
   return data;
 }
 
