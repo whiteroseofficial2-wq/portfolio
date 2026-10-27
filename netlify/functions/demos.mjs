@@ -145,5 +145,5 @@ export default async function handler(request) {
   } catch (e) {
     return json({ error: "storage is not available" }, 500);
   }
-  return handle(request, { store, adminPassword: process.env.ADMIN_PASSWORD });
+  return handle(request, { store, adminPassword: Netlify.env.get("ADMIN_PASSWORD") });
 }
