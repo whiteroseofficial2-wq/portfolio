@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Whiterose Website",
+    "url": "https://whiterose.indevs.in/",
+    "desc": "Our own site — dark security aesthetic, responsive and accessible.",
+    "tags": ["HTML", "CSS", "JS"],
+    "live": true
+  },
+  {
+    "title": "WhiteRose School ERP",
+    "url": "https://whiteroseofficial5-lgtm.github.io/school-demo/",
+    "desc": "Complete school management platform for Bright Future International School — every role has a pre-filled demo login.",
+    "tags": ["Web App", "Multi-role"],
+    "live": true
+  },
+  {
+    "title": "Animal Heart Vet Clinic",
+    "url": "https://amanrai264.github.io/Pet-Website/",
+    "desc": "Veterinary clinic, spa and pet store site — consultation, vaccination, grooming, boarding and adoption, with pricing and call-to-action.",
+    "tags": ["Website", "Booking"],
+    "live": true
+  },
+  {
+    "title": "Petopia Veterinary Clinic",
+    "url": "https://petopia-website-sable.vercel.app/",
+    "desc": "Veterinary clinic and surgical centre website with services and contact details.",
+    "tags": ["Website", "Services"],
+    "live": true
+  }
+]

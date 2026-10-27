@@ -1,0 +1,12 @@
+{
+  "name": "whiterose-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Whiterose site: static pages plus a Netlify Function that publishes the demo library to Netlify Blobs.",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.7"
+  }
+}

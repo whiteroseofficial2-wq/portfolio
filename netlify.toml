@@ -1,0 +1,15 @@
+[build]
+  # dist/ holds only the public site files — assembled by build.mjs so the
+  # repo's tooling folders, function source and node_modules are never served
+  publish = "dist"
+  functions = "netlify/functions"
+  command = "npm install && node build.mjs"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# the page talks to /api/demos; the function itself lives at /.netlify/functions/demos
+[[redirects]]
+  from = "/api/demos"
+  to = "/.netlify/functions/demos"
+  status = 200
