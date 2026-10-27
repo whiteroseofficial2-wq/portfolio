@@ -112,7 +112,7 @@ footer a{display:inline-block;padding:4px 3px;min-height:24px}
 <div class="panel">
 <div class="panel-head"><h2>Add a demo link</h2><button class="btn o" type="button" id="closemanage">Close</button></div>
 <p class="hint">A demo you add here goes straight onto the live site for every visitor — nothing to copy, and no token or key to handle. The list is saved by the site's own serverless function.</p>
-<p class="hint" style="margin-top:12px">Publishing: <span class="badge" id="apistate">CHECKING…</span></p>
+<p class="hint" style="margin-top:12px">Publishing: <span class="badge" id="apistate">CHECKING…</span> <span id="apihint"></span></p>
 
 <h3 style="margin-top:26px">New demo</h3>
 <form id="f" novalidate>
@@ -164,7 +164,7 @@ const safeUrl=u=>{try{const x=new URL(String(u).trim());return (x.protocol==="ht
 const tagList=t=>Array.isArray(t)?t.map(String):String(t||"").split(",").map(s=>s.trim()).filter(Boolean);
 const clean=x=>({title:String(x.title||""),url:safeUrl(x.url),desc:String(x.desc||""),tags:tagList(x.tags).map(s=>s.trim()).filter(Boolean),live:x.live!==false});
 
-let demos=[],loaded=false,loadFailed=false,previewOnly=false;
+let demos=[],loaded=false,loadFailed=false,mode="preview";
 
 function card(x){
   const live=x.live!==false;
@@ -181,8 +181,10 @@ function render(){
   $("empty").hidden=!(loaded&&demos.length===0);
   $("loaderr").hidden=!loadFailed;
   $("cnt").textContent=demos.length;
-  $("apistate").className="badge"+(previewOnly?" draft":"");
-  $("apistate").textContent=previewOnly?"READ-ONLY PREVIEW":"PUBLISHING READY";
+  const state=mode==="ready"?["","PUBLISHING READY"]:mode==="unconfigured"?[" draft","PASSWORD NOT SET"]:[" draft","READ-ONLY PREVIEW"];
+  $("apistate").className="badge"+state[0];
+  $("apistate").textContent=state[1];
+  $("apihint").textContent=mode==="unconfigured"?"The function is live but has no ADMIN_PASSWORD yet — add it in Netlify, then redeploy.":mode==="preview"?"No function on this host, so this page is read-only.":"Publishing writes straight to the live list.";
   $("pub").innerHTML=demos.length?demos.map((x,i)=>`<li><span>${esc(x.title)} <span class="hint">${esc(x.url)}</span></span><button class="danger" type="button" data-del="${i}"><svg class="ic ic-s" aria-hidden="true"><use href="#i-trash"/></svg>Remove</button></li>`).join(""):'<li class="hint">No demos published yet.</li>';
 }
 
@@ -191,11 +193,11 @@ async function loadDemos(){
   let list=null;
   try{
     const r=await fetch(API+"?t="+Date.now(),{cache:"no-store",headers:{accept:"application/json"}});
-    if(r.ok){const d=await r.json();if(Array.isArray(d&&d.demos)){list=d.demos.map(clean);previewOnly=false}}
+    if(r.ok){const d=await r.json();if(Array.isArray(d&&d.demos)){list=d.demos.map(clean);mode=d.publishConfigured===false?"unconfigured":"ready"}}
   }catch(e){}
   if(!list){
     /* no function here — fall back to the list shipped with the site, read-only */
-    previewOnly=true;
+    mode="preview";
     try{
       const r=await fetch(FALLBACK+"?t="+Date.now(),{cache:"no-store"});
       if(r.ok){const v=await r.json();if(Array.isArray(v))list=v.map(clean)}
@@ -242,12 +244,13 @@ $("f").addEventListener("submit",async e=>{
   say("status","Publishing…");
   try{
     const d=await api("add",entry,pw);
-    demos=d.demos.map(clean);loaded=true;loadFailed=false;previewOnly=false;render();
+    demos=d.demos.map(clean);loaded=true;loadFailed=false;mode="ready";render();
     $("f").reset();$("l").checked=true;
     say("status","Published. It is on the live site now.");
   }catch(err){
     if(err.message==="wrong password"){alert("Incorrect password. Please try again.");say("status","Not published — wrong password.",true)}
-    else say("status","Could not publish: "+err.message,true);
+    else{if(/ADMIN_PASSWORD/.test(err.message)){mode="unconfigured";render()}
+      say("status","Could not publish: "+err.message,true)}
   }finally{
     if(btn){btn.disabled=false;btn.removeAttribute("aria-busy")}
   }
@@ -269,7 +272,8 @@ $("pub").addEventListener("click",async e=>{
     say("liststatus",d.removed?"Removed. It is off the live site now.":"That demo was already gone — the list is up to date.");
   }catch(err){
     if(err.message==="wrong password"){alert("Incorrect password. Demo not removed.");say("liststatus","Nothing was removed — wrong password.",true)}
-    else say("liststatus","Could not remove: "+err.message,true);
+    else{if(/ADMIN_PASSWORD/.test(err.message)){mode="unconfigured";render()}
+      say("liststatus","Could not remove: "+err.message,true)}
     b.disabled=false;
   }
 });

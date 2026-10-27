@@ -81,7 +81,9 @@ export async function handle(request, deps) {
 
   if (request.method === "GET") {
     try {
-      return json({ demos: await readList(request.url, store) });
+      /* publishConfigured lets the admin panel say at a glance whether the
+         password has been set, instead of only failing on the first publish */
+      return json({ demos: await readList(request.url, store), publishConfigured: !!adminPassword });
     } catch (e) {
       return json({ error: "could not read the demo list" }, 500);
     }
